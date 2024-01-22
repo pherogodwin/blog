@@ -1,0 +1,99 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block title %}Detail{% endblock title %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-20 col-sm-10 col-md-10 col-lg-8">
+        <div class="product-container mt-5 mb-5 bg-dark text-white"
+             style="border-radius: 20px; border-style: solid; box-shadow: 2px 2px 5px rgba(0,0,0,0.5)">
+            <div class="details-card text-center" style="margin-top: 10rem; margin-bottom: 10rem;">
+                <h2>{{ post.title }}</h2>
+                <p class="p-5" style="font-size: 20px;">{{ post.content }}</p><br>
+                <h6>posted by: <a href="{{ user.profile.image.url }}" style="text-decoration: none;">@{{ post.author }}</a>
+                <small>- {{ post.date_posted }}</small></h6>
+                <br>
+                <hr>
+                <i class="fa-regular fa-thumbs-up" style="font-size: 25px; margin-left: 15px; margin-right: 15px;"></i>
+                <i class="fa-regular fa-comment" style="font-size: 25px; margin-left: 15px; margin-right: 15px;"></i>
+                <i class="fa-solid fa-share-from-square"
+                   style="font-size: 25px; margin-left: 15px; margin-right: 15px;"></i>
+                {% if request.user == post.author %}
+                <a href="{% url 'blog:edit' post.id %}" class="btn btn-info">Edit <i class="fa-solid fa-pen-to-square"
+                                                                                     style="color: #000000;"></i></a>
+                <a href="{% url 'blog:delete' post.id %}" class="btn btn-danger text-dark"><strong>Delete</strong> <i
+                        class="fa-solid fa-trash" style="color: #000000;"></i></a>
+                {% else %}
+                <a href="#" class="btn btn-outline-info mr-3" style="padding-right: 15px;">Save <i
+                        class="fa-regular fa-bookmark" style="color: #5bc0de;"></i></a>
+                <a href="#" class="btn btn-primary ml-3" style="padding-left: 15px;">Share <i
+                        class="fa-solid fa-share-from-square" style="color: #ffffff;"></i></a>
+                {% endif %}
+
+                <!--        <div style="margin-bottom: 300px; margin-right: 570px;">-->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h3 class="text-center">Related posts</h3>
+<br>
+{% for post in related_posts %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-10 col-lg-9">
+            <div class="card w-80 mb-3 mx-5" style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2)">
+                <div class="card-body bg-dark text-white" style="border-radius: 15px;">
+                    <div>
+                        <img width="30px" height="30px" style="border-radius:50%;"
+                             src="{% static 'media/Players award.jpeg' %}" alt="">
+                        <a href="#" style="text-decoration: none;"><h6 class="card-title ml-5">@{{ post.author }}</h6>
+                        </a>
+                    </div>
+                    <a href="{% url 'blog:detail' post.id %}" style="text-decoration: none; color: white;"><h4
+                            class="card-title">{{ post.title }}</h4>
+                        <p class="card-text">{{ post.content }}</p>
+                        <small>{{ post.date_posted }}</small></a>
+                    <hr>
+                    <div>
+                        <i class="fa-regular fa-thumbs-up"
+                           style="font-size: 25px; margin-left: 15px; margin-right: 15px;"></i>
+                        <i class="fa-regular fa-comment"
+                           style="font-size: 25px; margin-left: 15px; margin-right: 15px;"></i>
+                        <i class="fa-solid fa-share-from-square"
+                           style="font-size: 25px; margin-left: 15px; margin-right: 15px;"></i>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Warning !</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Are you sure you want to delete this post ?
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Yes, delete</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

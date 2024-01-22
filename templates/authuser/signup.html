@@ -1,0 +1,51 @@
+{% extends "partials/base.html" %}
+
+{% block title %}Signup{% endblock title %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="col-lg-6 mx-auto bg-dark" style="box-shadow: 2px 2px 5px rgba(0,0,0,0.7);">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="mb-4 text-center"><strong>Signup</strong></h1>
+                <form method="post" action=".">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_username" class="
+ form-label">Username</label>
+                        {{ form.username }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_email" class="
+ form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password1" class="
+ form-label">Password</label>
+                        {{ form.password1 }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password2" class="
+ form-label">Repeat Password
+                        </label>
+                        {{ form.password2 }}
+                    </div>
+                    <button type="submit" class="btn
+ btn-success btn-lg btn-
+ block">Submit
+                    </button>
+                </form>
+                <div>
+                    <small>Already have an account?
+                        <a href="{% url 'authuser:login' %}" class="text-
+ decoration-none">Login</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br>
+{% endblock content %}

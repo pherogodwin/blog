@@ -1,0 +1,40 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<h1 class="text-center">Gamers Palace</h1><br><br>
+{% for post in posts %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-10 col-lg-9">
+            <div class="card w-80 mb-3 mx-5" style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2)">
+                <div class="card-body bg-dark text-white" style="border-radius: 15px;">
+                    <div>
+                        <img width="30px" height="30px" style="border-radius:50%;"
+                             src="{% static 'media/Players award.jpeg' %}" alt="">
+                        <a href="{% url 'authuser:profile' %}" style="text-decoration: none;"><h6 class="card-title ml-5">@{{ post.author }}</h6>
+                        </a>
+                    </div>
+                    <a href="{% url 'blog:detail' post.id %}" style="text-decoration: none; color: white;"><h4
+                            class="card-title">{{ post.title }}</h4>
+                        <p class="card-text">{{ post.content }}</p>
+                        <small>{{ post.date_posted }}</small></a>
+                    <hr>
+                    <div>
+                        <i class="fa-regular fa-thumbs-up"
+                           style="font-size: 25px; margin-left: 15px; margin-right: 15px;"></i>
+                        <i class="fa-regular fa-comment"
+                           style="font-size: 25px; margin-left: 15px; margin-right: 15px;"></i>
+                        <i class="fa-solid fa-share-from-square"
+                           style="font-size: 25px; margin-left: 15px; margin-right: 15px;"></i>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
